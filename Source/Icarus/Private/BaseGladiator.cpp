@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "BaseGladiator.h"
+#include "Animation/AnimMontage.h"
 
 // Sets default values
 ABaseGladiator::ABaseGladiator()
@@ -39,12 +38,17 @@ void ABaseGladiator::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ABaseGladiator::Attack()
 {
-	// Implement attack logic here
+	IsAttacking = true;
+	
+	PlayAnimMontage(AttackMontage, 1.f);
+
 }
 
 void ABaseGladiator::Dodge()
 {
-	// Implement dodge logic here
+	// dodge
+	
+	
 }
 
 void ABaseGladiator::UpgradeFireRate()

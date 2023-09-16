@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "BaseGladiator.generated.h"
 
+// Forward declarations
+class UAnimMontage;
+
 UCLASS()
 class ICARUS_API ABaseGladiator : public ACharacter
 {
@@ -17,6 +20,11 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Attributes
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Attributes")
+	bool IsAttacking;
+	
+	// Robot Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float FireRate;
 
@@ -55,6 +63,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
 	void UpgradeDamage();
 
+	//Anim
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
+	UAnimMontage* AttackMontage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
+	UAnimMontage* DodgeMontage;
+	
 protected:
 	virtual void BeginPlay() override;
 };
