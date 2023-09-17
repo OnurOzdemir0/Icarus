@@ -1,6 +1,7 @@
 #include "AI_Gladiator.h"
 #include "BaseGladiator.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
 
 // Constructor
 AAI_Gladiator::AAI_Gladiator()
@@ -48,9 +49,10 @@ void AAI_Gladiator::ChooseNextAction()
 		else
 		{
 			//calculate random direction, and speed
-			float RandomDirection = FMath::RandRange(-1.f, 1.f);
-			float RandomSpeed = FMath::RandRange(-1.f, 1.f);
-			ControlledGladiator->Move(RandomDirection, RandomSpeed*10.f);
+			int RandomDirection = FMath::RandBool() ? 1 : -1;  // right or left?
+			float RandomSpeed = FMath::RandRange(100,200);
+			ControlledGladiator->Move(RandomDirection, RandomSpeed);
 		}
 	}
 }
+

@@ -45,11 +45,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Agility;
-
-
-
 	
-
 	// Actions
 	UFUNCTION(BlueprintCallable, Category = "Robot Actions")
 	void Attack();
@@ -79,11 +75,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
+	ABaseGladiator* GetTargetGladiator();
+	ABaseGladiator* TargetGladiator;
 private:	
 	float TimeSinceLastMove;
 	const float MoveCooldown = 1.0f;
-	float RandomDirection;
-	FVector DodgeDirection;
-	
 };

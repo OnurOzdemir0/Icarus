@@ -24,6 +24,8 @@ public:
 	// Function to Choose Next Action
 	void ChooseNextAction();
 
+
+
 	// Reference to the Gladiator this AI is controlling
 	ABaseGladiator* ControlledGladiator;
 
@@ -31,5 +33,5 @@ public:
 	float TimeSinceLastAction;
 
 	// Cooldown time between actions
-	const float ActionCooldown = 2.0f;
+	const float ActionCooldown = 1.5f;
 };
