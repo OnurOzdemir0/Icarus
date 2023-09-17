@@ -33,5 +33,5 @@ public:
 	float TimeSinceLastAction;
 
 	// Cooldown time between actions
-	const float ActionCooldown = 1.5f;
+	const float ActionCooldown = .3f;
 };

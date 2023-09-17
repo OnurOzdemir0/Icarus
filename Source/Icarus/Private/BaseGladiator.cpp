@@ -19,14 +19,13 @@ ABaseGladiator::ABaseGladiator()
 	Armor = 0.2f;
 	Agility = 10.3f;
 	TimeSinceLastMove = 0.0f;
-	Health = 300.0f;
+	Health = 10000.0f;
 	Damage = 10.0f;
 
 	//hit miss ratio for debug purposes
 	_hitCount = 0;
 	_missCount = 0;
 	
-
 }
 
 void ABaseGladiator::BeginPlay()
@@ -47,7 +46,7 @@ void ABaseGladiator::Attack()
 	//Shoot():
 		FVector RayStart = GetActorLocation();
 		FVector ForwardVector = GetActorForwardVector();
-		FVector RayEnd = ((ForwardVector * 2000.f) + RayStart); 
+		FVector RayEnd = ((ForwardVector * 10000.f) + RayStart); 
 		FHitResult HitResult;
 		FCollisionQueryParams CollisionParams;
 		CollisionParams.AddIgnoredActor(this);
@@ -87,7 +86,8 @@ void ABaseGladiator::Attack()
 	
 	PlayAnimMontage(AttackMontage, 1.3f);
 	IsAttacking = false;
-	
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Gladiator: %s Hit: %d, Miss: %d"),*this->GetName(), _hitCount, _missCount), true, FVector2D(3.f, 3.f)); 
 }
 
 void ABaseGladiator::Move(float Direction, float Speed)

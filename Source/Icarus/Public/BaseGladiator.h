@@ -83,7 +83,7 @@ protected:
 
 private:	
 	float TimeSinceLastMove;
-	const float MoveCooldown = 1.0f;
+	const float MoveCooldown = 1.0f; //not used
 
 	int _hitCount;
 	int _missCount;
