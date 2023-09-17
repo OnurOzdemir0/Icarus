@@ -46,7 +46,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Agility;
-	
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
+	bool IsDodging;
+
 	// Actions
 	UFUNCTION(BlueprintCallable, Category = "Robot Actions")
 	void Attack();
@@ -77,6 +80,8 @@ public:
 	//Opponent
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Opponent")
 	ABaseGladiator* OpponentGladiator;
+
+	bool Malfunction = false;
 protected:
 	virtual void BeginPlay() override;
 	void Aim();
