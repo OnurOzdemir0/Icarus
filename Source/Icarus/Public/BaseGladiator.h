@@ -23,6 +23,9 @@ public:
 	// Attributes
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Attributes")
 	bool IsAttacking;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Attributes")
+	bool CanMove;
 	
 	// Robot Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
@@ -35,17 +38,24 @@ public:
 	float Accuracy;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
+	float Health;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Armor;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Agility;
+
+
+
+	
 
 	// Actions
 	UFUNCTION(BlueprintCallable, Category = "Robot Actions")
 	void Attack();
 
 	UFUNCTION(BlueprintCallable, Category = "Robot Actions")
-	void Dodge();
+	void Move(float Direction, float Speed);
 
 	// Upgrades
 	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
@@ -67,9 +77,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
 	UAnimMontage* AttackMontage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
-	UAnimMontage* DodgeMontage;
-	
 protected:
 	virtual void BeginPlay() override;
+
+private:	
+	float TimeSinceLastMove;
+	const float MoveCooldown = 1.0f;
+	float RandomDirection;
+	FVector DodgeDirection;
+	
 };

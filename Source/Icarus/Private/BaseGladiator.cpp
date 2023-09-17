@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BaseGladiator.h"
 #include "Animation/AnimMontage.h"
+#include "AI_Gladiator.h"
+
 
 // Sets default values
 ABaseGladiator::ABaseGladiator()
@@ -12,13 +14,19 @@ ABaseGladiator::ABaseGladiator()
 	FireRate = 1.0f;
 	Accuracy = 0.5f;
 	Armor = 0.2f;
-	Agility = 0.3f;
+	Agility = 10.3f;
+	TimeSinceLastMove = 0.0f;
 }
 
 // Called when the game starts or when spawned
 void ABaseGladiator::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CanMove = true;
+
+	RandomDirection = FMath::RandRange(-1.f, 1.f);
+	DodgeDirection = FVector(0.f, RandomDirection, 0.f);
 	
 }
 
@@ -26,7 +34,7 @@ void ABaseGladiator::BeginPlay()
 void ABaseGladiator::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
 // Called to bind functionality to input
@@ -40,15 +48,13 @@ void ABaseGladiator::Attack()
 {
 	IsAttacking = true;
 	
-	PlayAnimMontage(AttackMontage, 1.f);
+	// PlayAnimMontage(AttackMontage, 1.f);
 
 }
 
-void ABaseGladiator::Dodge()
+void ABaseGladiator::Move(float Direction, float Speed)
 {
-	// dodge
-	
-	
+	AddMovementInput(FVector(0.f, Direction, 0.f), Speed);
 }
 
 void ABaseGladiator::UpgradeFireRate()
