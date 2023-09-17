@@ -16,6 +16,7 @@ class ICARUS_API ABaseGladiator : public ACharacter
 
 public:
 	ABaseGladiator();
+	void FindOpponent();
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -73,11 +74,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
 	UAnimMontage* AttackMontage;
 
+	//Opponent
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Opponent")
+	ABaseGladiator* OpponentGladiator;
 protected:
 	virtual void BeginPlay() override;
-	ABaseGladiator* GetTargetGladiator();
-	ABaseGladiator* TargetGladiator;
+	void Aim();
+
 private:	
 	float TimeSinceLastMove;
 	const float MoveCooldown = 1.0f;
+
+	int _hitCount;
+	int _missCount;
 };
