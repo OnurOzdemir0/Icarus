@@ -17,7 +17,7 @@ ABaseGladiator::ABaseGladiator()
 	FireRate = 1.0f;
 	Accuracy = 0.5f;
 	Armor = 0.2f;
-	Agility = 10.3f;
+	Agility = 1;
 	TimeSinceLastMove = 0.0f;
 	Health = 50.0f;
 	Damage = 10.0f;
@@ -42,7 +42,7 @@ void ABaseGladiator::Attack()
 	IsAttacking = true;
 	if (OpponentGladiator)
 	{
-		int dice = FMath::RandRange(1, 20); //20 sided dice, 1-5 malfunction, 6-10 hit, 10-20 +bonus
+		dice = FMath::RandRange(1, 20); //20 sided dice, 1-5 malfunction, 6-10 hit, 10-20 +bonus
 		if(dice<5) //Miss: malfunction
 		{
 		Malfunction = true;
@@ -102,7 +102,7 @@ void ABaseGladiator::Move(float Direction, float Speed)
 {
 	IsDodging = true;
 	AddMovementInput(FVector(0.f, Direction, 0.f), Speed, true);
-	GetCharacterMovement()->AddImpulse(FVector(0.f, Direction*200000, 0.f));
+	GetCharacterMovement()->AddImpulse(FVector(0.f, Direction*600000, 0.f));
 	
 	stringAction = "Dodging";
 }

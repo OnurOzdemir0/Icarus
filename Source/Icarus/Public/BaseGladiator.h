@@ -89,7 +89,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Debug")
 	FString stringAction = "None";
 	
-	
+	//Debug, UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Debug")
+	int dice;
 	
 	bool Malfunction = false;
 protected:

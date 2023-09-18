@@ -13,12 +13,13 @@ void AAI_Gladiator::BeginPlay()
 {
 	Super::BeginPlay();
 	ControlledGladiator = Cast<ABaseGladiator>(GetPawn());
+	ActionCooldown -= ControlledGladiator->Agility;
 }
 
 void AAI_Gladiator::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
+	
 	if(ControlledGladiator)
 	{
 		TimeSinceLastAction += DeltaSeconds;
@@ -39,6 +40,7 @@ void AAI_Gladiator::ChooseNextAction()
 		if (ControlledGladiator->Malfunction)
 		{
 			ControlledGladiator->Malfunction = false;
+			ControlledGladiator->stringAction = "Malfunction!";
 			return;
 		}
 			

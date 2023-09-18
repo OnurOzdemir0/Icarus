@@ -24,7 +24,7 @@ public:
 	int Action;
 	
 	float TimeSinceLastAction;
-	const float ActionCooldown = 1.5f;
+	float ActionCooldown = 2.5f;
 
 	UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "AI Round")
 	int Round = 0;
