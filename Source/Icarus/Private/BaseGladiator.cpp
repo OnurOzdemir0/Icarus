@@ -62,7 +62,7 @@ void ABaseGladiator::Attack()
 			_missCount++;
 			OpponentGladiator->IsDodging = false;  //already dodged 1, can't dodge again, without moving again
 
-			stringAction = "Missed";
+			stringAction = "Shot fail";
 			return;
 		}
 		FVector RayStart = GetActorLocation();
@@ -88,7 +88,7 @@ void ABaseGladiator::Attack()
 					stringAction = "Won";
 				}
 				_hitCount++;
-				stringAction = "shot successful";
+				stringAction = "shot successful, damage: " + FString::FromInt(Damage+ _bonus);
 			}
 		}
 		
@@ -103,7 +103,10 @@ void ABaseGladiator::Move(float Direction, float Speed)
 	IsDodging = true;
 	AddMovementInput(FVector(0.f, Direction, 0.f), Speed, true);
 	GetCharacterMovement()->AddImpulse(FVector(0.f, Direction*200000, 0.f));
+	
+	stringAction = "Dodging";
 }
+
 
 void ABaseGladiator::FindOpponent()
 {

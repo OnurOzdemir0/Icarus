@@ -26,6 +26,7 @@ void AAI_Gladiator::Tick(float DeltaSeconds)
 		{
 			ChooseNextAction();
 			TimeSinceLastAction = 0.0f;
+			Round++;
 		}
 	}
 }
@@ -45,16 +46,12 @@ void AAI_Gladiator::ChooseNextAction()
 		if (Action<2)
 		{
 			ControlledGladiator->Attack();
-			str_Action = "Attack";
-			
 		}
 		else
 		{
 			int RandomDirection = FMath::RandBool() ? 1 : -1;  // right or left?
 			float RandomSpeed = FMath::RandRange(100,200);
 			ControlledGladiator->Move(RandomDirection, RandomSpeed);
-
-			str_Action = "Move";
 		}
 	}
 }
