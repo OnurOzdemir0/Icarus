@@ -38,25 +38,33 @@ void ABaseGladiator::BeginPlay()
 
 void ABaseGladiator::Attack()
 {
+	_bonus = 0;
 	IsAttacking = true;
 	if (OpponentGladiator)
 	{
+		int dice = FMath::RandRange(1, 20); //20 sided dice, 1-5 malfunction, 6-10 hit, 10-20 +bonus
+		if(dice<5) //Miss: malfunction
+		{
+		Malfunction = true;
+		_missCount++;
+
+		stringAction = "Malfunction";	
+		return;	
+		}
+		else if(dice>10)
+		{
+			_bonus = (dice - 10);
+		}
+		
 		Aim();
-		if (OpponentGladiator->IsDodging)  //Miss: dodged already
+		if (OpponentGladiator->IsDodging)  //Miss: shot dodged
 		{
 			_missCount++;
-			OpponentGladiator->IsDodging = false;
+			OpponentGladiator->IsDodging = false;  //already dodged 1, can't dodge again, without moving again
+
+			stringAction = "Missed";
 			return;
 		}
-		
-		if(FMath::RandRange(1, 20)<5) //Miss: malfunction
-		{
-			Malfunction = true;
-			_missCount++;
-			return;	
-		}
-		
-		//Shoot():
 		FVector RayStart = GetActorLocation();
 		FVector ForwardVector = GetActorForwardVector();
 		FVector RayEnd = ((ForwardVector * 3000.f) + RayStart); 
@@ -71,14 +79,16 @@ void ABaseGladiator::Attack()
 			AActor* ActorHit = HitResult.GetActor();
 			
 			ABaseGladiator* HitGladiator = Cast<ABaseGladiator>(ActorHit);
-			if (HitGladiator)  // if we hit a gladiator
+			if (HitGladiator)  // if we hit a ABaseGladiator type actor
 			{
-				GEngine->AddOnScreenDebugMessage( -1, 5.f, FColor::Red, FString::Printf(TEXT("Hit: %s Health %f"), *HitGladiator->GetName(), HitGladiator->Health), true, FVector2D(3.f, 3.f));
-				HitGladiator->Health -= Damage;
+				HitGladiator->Health -= Damage+ _bonus;
 				if (HitGladiator->Health <= 0)
+				{
 					HitGladiator->Destroy();
-				
+					stringAction = "Won";
+				}
 				_hitCount++;
+				stringAction = "shot successful";
 			}
 		}
 		
@@ -86,15 +96,13 @@ void ABaseGladiator::Attack()
 	
 	PlayAnimMontage(AttackMontage, 1.3f);
 	IsAttacking = false;
-	
-	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Gladiator: %s Hit: %d, Miss: %d"),*this->GetName(), _hitCount, _missCount), true, FVector2D(3.f, 3.f)); 
 }
 
 void ABaseGladiator::Move(float Direction, float Speed)
 {
 	IsDodging = true;
 	AddMovementInput(FVector(0.f, Direction, 0.f), Speed, true);
-	GetCharacterMovement()->AddImpulse(FVector(0.f, Direction*Speed*3000, 0.f));
+	GetCharacterMovement()->AddImpulse(FVector(0.f, Direction*200000, 0.f));
 }
 
 void ABaseGladiator::FindOpponent()
@@ -132,7 +140,7 @@ void ABaseGladiator::UpgradeAccuracy()
 	Accuracy += 0.05f;
 }
 
-void ABaseGladiator::UpgradeArmor()
+void ABaseGladiator::UpgradeArmor() 
 {
 	Armor += 0.05f;
 }

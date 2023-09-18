@@ -19,6 +19,12 @@ public:
 	void ChooseNextAction();
 
 	ABaseGladiator* ControlledGladiator;
+
+	UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "AI")
+	int Action;
+
+	UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "AI")
+	FString str_Action;
 	
 	float TimeSinceLastAction;
 	const float ActionCooldown = 1.0f;

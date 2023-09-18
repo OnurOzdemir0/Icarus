@@ -81,6 +81,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Opponent")
 	ABaseGladiator* OpponentGladiator;
 
+	//_bonus
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Bonus")
+	int _bonus =0;
+
+	//Debug, UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Debug")
+	FString stringAction = "None";
+	
+	
+	
 	bool Malfunction = false;
 protected:
 	virtual void BeginPlay() override;
@@ -92,4 +102,5 @@ private:
 
 	int _hitCount;
 	int _missCount;
+	
 };
