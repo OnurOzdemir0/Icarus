@@ -13,9 +13,9 @@ ABaseGladiator::ABaseGladiator()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	FireRate = 1.0f;
-	Accuracy = 0.5f;
+
+	Ammo = 2;
+	AmmoLeft = Ammo;
 	Armor = 0.2f;
 	Agility = 1;
 	TimeSinceLastMove = 0.0f;
@@ -42,12 +42,17 @@ void ABaseGladiator::Attack()
 	IsAttacking = true;
 	if (OpponentGladiator)
 	{
+		if (AmmoLeft <1 ) {
+			Reload();
+			return;
+		}
+		
 		dice = FMath::RandRange(1, 20); //20 sided dice, 1-5 malfunction, 6-10 hit, 10-20 +bonus
 		if(dice<5) //Miss: malfunction
 		{
 		Malfunction = true;
 		_missCount++;
-
+		AmmoLeft--;
 		stringAction = "Malfunction";	
 		return;	
 		}
@@ -55,13 +60,15 @@ void ABaseGladiator::Attack()
 		{
 			_bonus = (dice - 10);
 		}
+
+
 		
 		Aim();
 		if (OpponentGladiator->IsDodging)  //Miss: shot dodged
 		{
 			_missCount++;
 			OpponentGladiator->IsDodging = false;  //already dodged 1, can't dodge again, without moving again
-
+			AmmoLeft--;
 			stringAction = "Shot fail";
 			return;
 		}
@@ -77,18 +84,24 @@ void ABaseGladiator::Attack()
 		{
 			DrawDebugLine(GetWorld(), RayStart, RayEnd, FColor::Red, false, 1, 0, 3);
 			AActor* ActorHit = HitResult.GetActor();
-			
+
 			ABaseGladiator* HitGladiator = Cast<ABaseGladiator>(ActorHit);
 			if (HitGladiator)  // if we hit a ABaseGladiator type actor
 			{
 				HitGladiator->Health -= Damage+ _bonus;
+				AmmoLeft--;
 				if (HitGladiator->Health <= 0)
 				{
 					HitGladiator->Destroy();
 					stringAction = "Won";
 				}
 				_hitCount++;
-				stringAction = "shot successful, damage: " + FString::FromInt(Damage+ _bonus);
+				
+				if(_bonus>5)
+					stringAction = "shot very successful, critical damage: " + FString::FromInt(Damage+ _bonus);
+				else
+					stringAction = "shot successful, damage: " + FString::FromInt(Damage+ _bonus);
+				
 			}
 		}
 		
@@ -133,14 +146,9 @@ void ABaseGladiator::Aim()
 	SetActorRotation(TargetRotation);
 }
 
-void ABaseGladiator::UpgradeFireRate()
-{
-	FireRate += 0.1f;
-}
-
-void ABaseGladiator::UpgradeAccuracy()
-{
-	Accuracy += 0.05f;
+void ABaseGladiator::Reload() {
+	AmmoLeft = Ammo;
+	stringAction = "Reloading";
 }
 
 void ABaseGladiator::UpgradeArmor() 
@@ -158,6 +166,15 @@ void ABaseGladiator::UpgradeDamage()
 	Damage += 0.05f;
 }
 
+void ABaseGladiator::RandomizeStats()
+{
+	Ammo = FMath::RandRange(1, 3);
+	// Armor = FMath::RandFloat();
+	Agility = FMath::RandRange(.7, 1.2);
+	Health = FMath::RandRange(30, 70);
+	Damage = FMath::RandRange(5, 15);
+}
+
 // Called every frame
 void ABaseGladiator::Tick(float DeltaTime)
 {
@@ -171,3 +188,4 @@ void ABaseGladiator::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+

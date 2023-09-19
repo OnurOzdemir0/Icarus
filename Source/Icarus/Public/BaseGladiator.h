@@ -30,13 +30,13 @@ public:
 	
 	// Robot Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
-	float FireRate;
+	int32 Ammo;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
+	int32 AmmoLeft;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Damage;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
-	float Accuracy;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Stats")
 	float Health;
@@ -58,11 +58,6 @@ public:
 	void Move(float Direction, float Speed);
 
 	// Upgrades
-	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
-	void UpgradeFireRate();
-
-	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
-	void UpgradeAccuracy();
 
 	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
 	void UpgradeArmor();
@@ -72,6 +67,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
 	void UpgradeDamage();
+
+	// RANDOM
+	UFUNCTION(BlueprintCallable, Category = "Robot Random")
+	void RandomizeStats();
 
 	//Anim
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
@@ -97,6 +96,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	void Aim();
+	void Reload();
 
 private:	
 	float TimeSinceLastMove;
