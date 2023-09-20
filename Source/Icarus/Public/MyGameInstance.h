@@ -3,18 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "PlayerStatMenu.generated.h"
+#include "Engine/GameInstance.h"
+#include "MyGameInstance.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ICARUS_API UPlayerStatMenu : public UUserWidget
+class ICARUS_API UMyGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-public:
-
-	
 	
 };
