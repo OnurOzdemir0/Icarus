@@ -14,25 +14,25 @@ FVector4 UMyBlueprintFunctionLibrary::RandomEnemyStat(int level)
 	
 
 	// Generate Health
-	float Health = FMath::RandRange(10, 120);
+	float Health = FMath::RandRange(10, 100);
 	Health = FMath::RoundToFloat(Health / 10) * 10;
 	Health *= HealthMultiplier;
 	AttributesArray.X = Health;
 
 	// Generate Damage
-	float Damage = FMath::RandRange(10, 60);
+	float Damage = FMath::RandRange(5, 50);
 	Damage = FMath::RoundToFloat(Damage / 5) * 5;
 	Damage *= DamageMultiplier;
 	AttributesArray.Y = Damage;
 
 	// Generate Ammo
-	float Ammo = FMath::RandRange(3, 7);
+	float Ammo = FMath::RandRange(1, 4);
 	Ammo = FMath::RoundToFloat(Ammo / 2) * 2;
 	Ammo *= AmmoMultiplier;
 	AttributesArray.Z = Ammo;
 
 	// Generate Agility
-	float Agility = FMath::FRandRange(0.6f, 1.6f);
+	float Agility = FMath::FRandRange(0.4f, 1.4f);
 	Agility = FMath::RoundToFloat(Agility / 0.2f) * 0.2f;
 	Agility *= AgilityMultiplier;
 	AttributesArray.W = Agility;

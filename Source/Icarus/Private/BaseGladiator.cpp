@@ -36,11 +36,7 @@ void ABaseGladiator::BeginPlay()
 	
 	FindOpponent();
 	
-	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
-	if(GameInstance)
-	{
-		HandleDeath.AddDynamic(GameInstance, &UMyGameInstance::OnGladiatorDeath);
-	}
+	GameInstance = Cast<UMyGameInstance>(GetGameInstance());
 }
 
 void ABaseGladiator::Attack()
@@ -99,7 +95,8 @@ void ABaseGladiator::Attack()
 				AmmoLeft--;
 				if (HitGladiator->Health <= 0)
 				{
-					HitGladiator->HandleDeath.Broadcast(HitGladiator);
+					GameInstance->OnGladiatorDeath(HitGladiator);
+					HitGladiator->bIsAlive = false;
 				}
 				_hitCount++;
 				
@@ -165,18 +162,6 @@ void ABaseGladiator::RandomizeStats()
 	Health = FMath::RandRange(30, 70);
 	Damage = FMath::RandRange(5, 15);
 }
-
-// void ABaseGladiator::HandleDeath()
-// {
-// 	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
-//
-// 	if (GameInstance)
-// 	{
-// 		int result = GameInstance->OnGladiatorDeath(this);
-// 	}
-// 	OnDeathEvent.Broadcast();
-// }
-
 
 // Called every frame
 void ABaseGladiator::Tick(float DeltaTime)

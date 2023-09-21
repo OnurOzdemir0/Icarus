@@ -6,10 +6,9 @@
 #include "GameFramework/Character.h"
 #include "BaseGladiator.generated.h"
 
+class UMyGameInstance;
 // Forward declarations
 class UAnimMontage;
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHandleDeath, ABaseGladiator*, Gladiator);
 
 UCLASS()
 class ICARUS_API ABaseGladiator : public ACharacter
@@ -23,6 +22,8 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UMyGameInstance* GameInstance;
+	
 	// Attributes
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Robot Attributes")
 	bool IsAttacking;
@@ -62,10 +63,7 @@ public:
 	// RANDOM
 	UFUNCTION(BlueprintCallable, Category = "Robot Random")
 	void RandomizeStats();
-
-	UPROPERTY(BlueprintAssignable, Category = "Events")
-	FHandleDeath HandleDeath; 
-
+	
 	//Anim
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
 	UAnimMontage* AttackMontage;
@@ -87,6 +85,10 @@ public:
 	int dice;
 	
 	bool Malfunction = false;
+
+	UPROPERTY(	EditAnywhere, BlueprintReadWrite, Category = "Robot Debug")
+	bool bIsAlive = true;
+
 protected:
 	virtual void BeginPlay() override;
 	void Aim();
