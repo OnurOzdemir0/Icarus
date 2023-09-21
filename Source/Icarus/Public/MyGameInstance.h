@@ -13,10 +13,12 @@ UCLASS()
 class ICARUS_API UMyGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-
 public:
-
+	UMyGameInstance();
+	
 	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )	
 	class ABaseGladiator *Player;
-	
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	int32 UpgradePoints = 10;
 };
