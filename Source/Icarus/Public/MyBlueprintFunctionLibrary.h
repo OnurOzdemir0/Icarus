@@ -13,5 +13,10 @@ UCLASS()
 class ICARUS_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION( BlueprintCallable, Category = "EnemyStat" )
+	FVector4 RandomEnemyStat(int level);
+	
 	
 };
