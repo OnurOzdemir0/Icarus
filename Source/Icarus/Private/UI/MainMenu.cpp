@@ -21,7 +21,6 @@ bool UMainMenu::Initialize()
 
 void UMainMenu::OnStartClicked()
 {
-	// Transition to the attribute allocation screen or directly to the game
 	UGameplayStatics::OpenLevel(this, "Colosseum", true);
 }
 

@@ -24,7 +24,7 @@ bool UPlayerStatMenu::Initialize()
 	if (HBI && HBD)
 	{
 		HBI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnHIncreaseClicked);
-		HBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnHDecreaseClicked); // You'd implement this function
+		HBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnHDecreaseClicked); 
 	}
 
 	// Damage buttons
@@ -32,8 +32,8 @@ bool UPlayerStatMenu::Initialize()
 	DBD = Cast<UButton>(GetWidgetFromName(TEXT("DBD")));
 	if (DBI && DBD)
 	{
-		DBI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnDIncreaseClicked); // You'd implement this function
-		DBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnDDecreaseClicked); // You'd implement this function
+		DBI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnDIncreaseClicked); 
+		DBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnDDecreaseClicked); 
 	}
 
 	// Ammo buttons
@@ -41,8 +41,8 @@ bool UPlayerStatMenu::Initialize()
 	ABD = Cast<UButton>(GetWidgetFromName(TEXT("ABD")));
 	if (ABI && ABD)
 	{
-		ABI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAIncreaseClicked); // You'd implement this function
-		ABD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnADecreaseClicked); // You'd implement this function
+		ABI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAIncreaseClicked); 
+		ABD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnADecreaseClicked); 
 	}
 
 	// Agility buttons
@@ -50,8 +50,8 @@ bool UPlayerStatMenu::Initialize()
 	AGBD = Cast<UButton>(GetWidgetFromName(TEXT("AGBD")));
 	if (AGBI && AGBD)
 	{
-		AGBI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAGIncreaseClicked); // You'd implement this function
-		AGBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAGDecreaseClicked); // You'd implement this function
+		AGBI->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAGIncreaseClicked); 
+		AGBD->OnClicked.AddDynamic(this, &UPlayerStatMenu::OnAGDecreaseClicked); 
 	}
 	
 	return true;
@@ -60,112 +60,112 @@ bool UPlayerStatMenu::Initialize()
 //On Button clicked
 void UPlayerStatMenu::OnHIncreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Health))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Health < 100 && gameInst->UpgradePoints > 0)
+	if (gameInst->Health < 120 && gameInst->UpgradePoints > 0)
 	{
-		gameInst->Player->Health+=10;
+		gameInst->Health+=10;
 		gameInst->UpgradePoints-=1;
 	}
 }
 
 void UPlayerStatMenu::OnHDecreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Health))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
 	
-	if (gameInst->Player->Health > 10)
+	if (gameInst->Health > 10)
 	{
-		gameInst->Player->Health-=10;
+		gameInst->Health-=10;
 		gameInst->UpgradePoints+=1;
 	}
 }
 
 void UPlayerStatMenu::OnDIncreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Damage))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Damage < 100 && gameInst->UpgradePoints > 0)
+	if (gameInst->Damage < 60 && gameInst->UpgradePoints > 0)
 	{
-		gameInst->Player->Damage+=10;
+		gameInst->Damage+=5;
 		gameInst->UpgradePoints-=1;
 	}
 }
 
 void UPlayerStatMenu::OnDDecreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Damage))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Damage > 10)
+	if (gameInst->Damage > 10)
 	{
-		gameInst->Player->Damage-=10;
+		gameInst->Damage-=5;
 		gameInst->UpgradePoints+=1;
 	}
 }
 
 void UPlayerStatMenu::OnAIncreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Ammo))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Ammo < 100 && gameInst->UpgradePoints > 0)
+	if (gameInst->Ammo < 7 && gameInst->UpgradePoints > 0)
 	{
-		gameInst->Player->Ammo+=2;
+		gameInst->Ammo+=2;
 		gameInst->UpgradePoints-=1;
 	}
 }
 void UPlayerStatMenu::OnADecreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Ammo))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Ammo > 3)
+	if (gameInst->Ammo > 3)
 	{
-		gameInst->Player->Ammo -= 2;
+		gameInst->Ammo -= 2;
 		gameInst->UpgradePoints += 1;
 	}
 }
 
 void UPlayerStatMenu::OnAGIncreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Agility))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Agility < 100 && gameInst->UpgradePoints > 0)
+	if (gameInst->Agility < 1.6 && gameInst->UpgradePoints > 0)
 	{
-		gameInst->Player->Agility += 0.2;
+		gameInst->Agility += 0.2;
 		gameInst->UpgradePoints -= 1;
 	}
 }
 
 void UPlayerStatMenu::OnAGDecreaseClicked()
 {
-	if(!(gameInst->Player))
+	if(!(gameInst->Agility))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("gameInst->Player is null"));
 		return;
 	}
-	if (gameInst->Player->Agility > 1)
+	if (gameInst->Agility > 0.6)
 	{
-		gameInst->Player->Agility -= 0.2;
+		gameInst->Agility -= 0.2;
 		gameInst->UpgradePoints += 1;
 	}
 }

@@ -16,8 +16,17 @@ class ICARUS_API UMyGameInstance : public UGameInstance
 public:
 	UMyGameInstance();
 	
-	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )	
-	class ABaseGladiator *Player;
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	int32 Health = 20;
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	int32 Damage = 5;
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	int32 Ammo = 2;
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	float Agility = 0.8f;
 
 	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
 	int32 UpgradePoints = 10;
