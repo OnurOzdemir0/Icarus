@@ -16,7 +16,7 @@ class ICARUS_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 
 public:
 	UFUNCTION( BlueprintCallable, Category = "EnemyStat" )
-	FVector4 RandomEnemyStat(int level);
+	static FVector4 RandomEnemyStat(int level);
 	
 	
 };
