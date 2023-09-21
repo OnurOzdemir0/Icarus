@@ -2,4 +2,7 @@
 
 
 #include "MyGameInstance.h"
+#include "BaseGladiator.h"
+
+
 
