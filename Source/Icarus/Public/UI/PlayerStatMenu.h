@@ -29,29 +29,24 @@ public:
 
 	UFUNCTION( BlueprintCallable )   //health
 	void OnHIncreaseClicked();
-
 	UFUNCTION( BlueprintCallable )
 	void OnHDecreaseClicked();
 
 	UFUNCTION( BlueprintCallable )	//damage
 	void OnDIncreaseClicked();
-
 	UFUNCTION( BlueprintCallable )
 	void OnDDecreaseClicked();
 
 	UFUNCTION( BlueprintCallable )  //ammo
 	void OnAIncreaseClicked();
-
 	UFUNCTION( BlueprintCallable )
 	void OnADecreaseClicked();
 
 	UFUNCTION( BlueprintCallable )  //agility
 	void OnAGIncreaseClicked();
-
 	UFUNCTION( BlueprintCallable )
 	void OnAGDecreaseClicked();
 	
-
 	UButton *HBI, *HBD;   // Health		I: increase,  D:decrease 
  	UButton *DBI, *DBD;   // Damage
 	UButton *ABI, *ABD;   // Ammo

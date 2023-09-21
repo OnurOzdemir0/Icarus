@@ -7,6 +7,7 @@
 #include "DrawDebugHelpers.h" 
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyGameInstance.h"
 
 // Sets default values
 ABaseGladiator::ABaseGladiator()
@@ -34,6 +35,12 @@ void ABaseGladiator::BeginPlay()
 	CanMove = true;
 	
 	FindOpponent();
+	
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	if(GameInstance)
+	{
+		HandleDeath.AddDynamic(GameInstance, &UMyGameInstance::OnGladiatorDeath);
+	}
 }
 
 void ABaseGladiator::Attack()
@@ -92,8 +99,7 @@ void ABaseGladiator::Attack()
 				AmmoLeft--;
 				if (HitGladiator->Health <= 0)
 				{
-					HitGladiator->Destroy();
-					stringAction = "Won";
+					HitGladiator->HandleDeath.Broadcast(HitGladiator);
 				}
 				_hitCount++;
 				
@@ -151,21 +157,6 @@ void ABaseGladiator::Reload() {
 	stringAction = "Reloading";
 }
 
-void ABaseGladiator::UpgradeArmor() 
-{
-	Armor += 0.05f;
-}
-
-void ABaseGladiator::UpgradeAgility()
-{
-	Agility += 0.05f;
-}
-
-void ABaseGladiator::UpgradeDamage()
-{
-	Damage += 0.05f;
-}
-
 void ABaseGladiator::RandomizeStats()
 {
 	Ammo = FMath::RandRange(1, 3);
@@ -174,6 +165,18 @@ void ABaseGladiator::RandomizeStats()
 	Health = FMath::RandRange(30, 70);
 	Damage = FMath::RandRange(5, 15);
 }
+
+// void ABaseGladiator::HandleDeath()
+// {
+// 	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+//
+// 	if (GameInstance)
+// 	{
+// 		int result = GameInstance->OnGladiatorDeath(this);
+// 	}
+// 	OnDeathEvent.Broadcast();
+// }
+
 
 // Called every frame
 void ABaseGladiator::Tick(float DeltaTime)

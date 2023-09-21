@@ -9,6 +9,8 @@
 // Forward declarations
 class UAnimMontage;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHandleDeath, ABaseGladiator*, Gladiator);
+
 UCLASS()
 class ICARUS_API ABaseGladiator : public ACharacter
 {
@@ -57,20 +59,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Robot Actions")
 	void Move(float Direction, float Speed);
 
-	// Upgrades
-
-	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
-	void UpgradeArmor();
-
-	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
-	void UpgradeAgility();
-
-	UFUNCTION(BlueprintCallable, Category = "Robot Upgrades")
-	void UpgradeDamage();
-
 	// RANDOM
 	UFUNCTION(BlueprintCallable, Category = "Robot Random")
 	void RandomizeStats();
+
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FHandleDeath HandleDeath; 
 
 	//Anim
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robot Animations")
@@ -100,7 +94,7 @@ protected:
 
 private:	
 	float TimeSinceLastMove;
-	const float MoveCooldown = 1.0f; //not used
+	const float MoveCooldown = 1.0f; 
 
 	int _hitCount;
 	int _missCount;

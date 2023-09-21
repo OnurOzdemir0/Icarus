@@ -30,4 +30,13 @@ public:
 
 	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
 	int32 UpgradePoints = 10;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Enemy")
+	FVector4 EnemyStats = FVector4(20, 5, 2, 0.8f);
+
+	UFUNCTION( BlueprintCallable )
+	void OnGladiatorDeath(class ABaseGladiator* Gladiator);
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Game Variables" )
+	int32 Round = 1;
 };
