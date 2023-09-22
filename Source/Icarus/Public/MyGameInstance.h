@@ -15,6 +15,12 @@ class ICARUS_API UMyGameInstance : public UGameInstance
 	GENERATED_BODY()
 public:
 	UMyGameInstance();
+
+	UFUNCTION( BlueprintCallable )
+	void PlayBackgroundMusic(USoundBase* Music);
+
+	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
+	class UAudioComponent* AudioComponent;
 	
 	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Player" )
 	int32 Health = 20;
